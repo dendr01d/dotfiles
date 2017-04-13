@@ -26,32 +26,54 @@ BWHT="\[\033[47m\]" # background white
 # so that the git stuff works right
 # source /etc/bash_completion.d/git
 
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+TERM_WIDTH=0
+HORZ_LINE=""
+
 function myPrompt {
 RET=$?
 MYCLR=""
 
-#set colors
+#set colors according to output success, store for later
 if [ $RET != 0 ]; then
 	MYCLR=$FRED
 else
 	MYCLR=$FCYN
 fi
 
-#print horizontal line
-for (( c=1; c<=$COLUMNS; c++)); do 
-	echo -n "_"
-done
-echo
+#if the window changes width, change the line separator
+if [ $TERM_WIDTH != $COLUMNS ]; then
+	TERM_WIDTH=$COLUMNS
+	HORZ_LINE=""
+
+	for (( c=1; c<=$COLUMNS; c++)); do
+		HORZ_LINE+="_"
+	done
+fi
+
+# print the line separator
+echo $HORZ_LINE
+
+
+#check to see if we're in a git directory
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
 
 #set the actual prompt
-IN_REPO=$(__git_ps1)
+IN_REPO=$(parse_git_branch)
 
 if [ "$IN_REPO" != "" ]; then
-	PS1="$MYCLR[\w]$HC$FGRN$(__git_ps1)$RS$MYCLR\\$ $RS"
+	PS1="$MYCLR[\w]$HC$FGRN$(parse_git_branch)$RS$MYCLR\\$ $RS"
 else
 	PS1="$MYCLR[\w]\\$ $RS"
 fi
 }
+# end function myPrompt
 
 PROMPT_COMMAND=myPrompt
 
