@@ -81,3 +81,20 @@ PROMPT_COMMAND=myPrompt
 
 # to make it obvious this file was called in the first place
 echo duncanProf loaded
+
+echo "                         ,,    ,,                      ,           ";
+echo "\`7MMF'  \`7MMF'         \`7MM  \`7MM                      |   .       ";
+echo "  MM      MM             MM    MM               \`.  *  |     .'    ";
+echo "  MM      MM   .gP\"Ya    MM    MM   ,pW\"Wq.       \`. ._|_* .'  .   ";
+echo "  MMmmmmmmMM  ,M'   Yb   MM    MM  6W'   \`Wb    . * .'   \`.  *     ";
+echo "  MM      MM  8M\"\"\"\"\"\"   MM    MM  8M     M8  ------|     |------  ";
+echo "  MM      MM  YM.    ,   MM    MM  YA.   ,A9    .  *\`.___.' *  .   ";
+echo ".JMML.  .JMML. \`Mbmmd' .JMML..JMML. \`Ybmd9'        .'  |* \`.  *    ";
+echo "                                                 .' *  |  . \`.     ";
+echo "\`7MM\"\"\"Yb.                                           . |           ";
+echo "  MM    \`Yb.                                           '           ";
+echo "  MM     \`Mb \`7MM  \`7MM  \`7MMpMMMb.   ,p6\"bo   ,6\"Yb.  \`7MMpMMMb.  ";
+echo "  MM      MM   MM    MM    MM    MM  6M'  OO  8)   MM    MM    MM  ";
+echo "  MM     ,MP   MM    MM    MM    MM  8M        ,pm9MM    MM    MM  ";
+echo "  MM    ,dP'   MM    MM    MM    MM  YM.    , 8M   MM    MM    MM  ";
+echo ".JMMmmmdP'     \`Mbod\"YML..JMML  JMML. YMbmd'  \`Moo9^Yo..JMML  JMML.";
