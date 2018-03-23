@@ -21,30 +21,31 @@ BCYN="\[\033[46m\]" # background cyan
 BWHT="\[\033[47m\]" # background white
 
 # My prompt
+# This is the first one I made
+# For historical purposes
 # PS1="\`if [ \$? = 0 ]; then echo $FCYN; else echo $FRED; fi \`[\w]\\$ $RS"
-
-# so that the git stuff works right
-# source /etc/bash_completion.d/git
-
-parse_git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
 
 TERM_WIDTH=0
 HORZ_LINE=""
 
+# begin the actual prompt function. Yes, all of this
 function myPrompt {
-RET=$?
+# ====================================================
+
+RET=$? # Set to exit code of last command
 MYCLR=""
 
-#set colors according to output success, store for later
+# If the last command returns with an exit code other than zero
+# turn the prompt red
+# else it should be a nice shade of teal
 if [ $RET != 0 ]; then
 	MYCLR=$FRED
 else
 	MYCLR=$FCYN
 fi
 
-#if the window changes width, change the line separator
+# Check if the window has changed width
+# If so, adjust the line separator to fill it
 if [ $TERM_WIDTH != $COLUMNS ]; then
 	TERM_WIDTH=$COLUMNS
 	HORZ_LINE=""
@@ -54,17 +55,21 @@ if [ $TERM_WIDTH != $COLUMNS ]; then
 	done
 fi
 
-# print the line separator
+# Print the line separator
 echo $HORZ_LINE
 
 
-#check to see if we're in a git directory
+# I'll admit I'm not totally sure how this part works
+# Basically it checks if we're in a git repo
+# If so, it'll grab the name of the branch we're on
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 
-#set the actual prompt
+# This is the actual prompt that gets displayed
+# Shows the current directory
+# and info about the git repo, if we're in one
 IN_REPO=$(parse_git_branch)
 
 if [ "$IN_REPO" != "" ]; then
@@ -72,16 +77,23 @@ if [ "$IN_REPO" != "" ]; then
 else
 	PS1="$MYCLR[\w]\\$ $RS"
 fi
+
+# ====================================================
 }
 # end function myPrompt
 
 PROMPT_COMMAND=myPrompt
 
+# I hate the way you have to call java from the terminal
+# So for lack of a better place to stick it, here's this:
+export CLASSPATH=./..
+# Basically if I try to call a java program, it'll attempt
+# to do so from the parent dir of wherever I am
 
 
-# to make it obvious this file was called in the first place
-echo duncanProf loaded
-
+# To affirm that this file was successfully loaded
+# echo duncanProf loaded
+# Actually, because I'm very Extra:
 echo "                         ,,    ,,                      ,           ";
 echo "\`7MMF'  \`7MMF'         \`7MM  \`7MM                      |   .       ";
 echo "  MM      MM             MM    MM               \`.  *  |     .'    ";
